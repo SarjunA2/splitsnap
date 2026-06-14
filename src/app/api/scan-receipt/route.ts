@@ -3,8 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 import convert from "heic-convert";
 import type { ReceiptData } from "@/app/lib/types";
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"] as const;
 type AllowedType = (typeof ALLOWED_TYPES)[number];
 
@@ -21,6 +19,7 @@ function sanitizeMediaType(raw: string): AllowedType {
 }
 
 export async function POST(req: NextRequest) {
+  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   try {
     const formData = await req.formData();
     const imageFile = formData.get("image") as File | null;

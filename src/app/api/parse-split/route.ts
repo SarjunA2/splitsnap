@@ -2,8 +2,6 @@ import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest, NextResponse } from "next/server";
 import type { LineItem, Person, ItemAssignment } from "@/app/lib/types";
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-
 interface ParseSplitRequest {
   transcript: string;
   items: LineItem[];
@@ -11,6 +9,7 @@ interface ParseSplitRequest {
 }
 
 export async function POST(req: NextRequest) {
+  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   try {
     const body: ParseSplitRequest = await req.json();
     const { transcript, items, people } = body;
