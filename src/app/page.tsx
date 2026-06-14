@@ -150,8 +150,7 @@ export default function Home() {
 
   const startRecording = () => {
     const SR =
-      (window as typeof window & { SpeechRecognition?: typeof window.SpeechRecognition; webkitSpeechRecognition?: typeof window.SpeechRecognition }).SpeechRecognition ||
-      (window as typeof window & { webkitSpeechRecognition?: typeof window.SpeechRecognition }).webkitSpeechRecognition;
+      (typeof window !== "undefined" && (window.SpeechRecognition || window.webkitSpeechRecognition));
 
     if (!SR) {
       setError("Voice recognition not supported. Use Chrome or Edge, or type below.");
