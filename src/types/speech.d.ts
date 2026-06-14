@@ -1,3 +1,14 @@
+// heic-convert
+declare module "heic-convert" {
+  interface ConvertOptions {
+    buffer: Buffer;
+    format: "JPEG" | "PNG";
+    quality?: number;
+  }
+  function convert(options: ConvertOptions): Promise<ArrayBuffer>;
+  export default convert;
+}
+
 // Web Speech API type declarations for TypeScript environments that don't include them
 
 interface SpeechRecognitionResultList {
