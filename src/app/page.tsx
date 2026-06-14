@@ -856,12 +856,9 @@ function AssignmentEditor({
   };
 
   const handleConfirm = () => {
-    const assignments: ItemAssignment[] = [];
-    for (const [itemId, personSet] of assignMap.entries()) {
-      if (personSet.size > 0) {
-        assignments.push({ itemId, personIds: Array.from(personSet) });
-      }
-    }
+    const assignments: ItemAssignment[] = Array.from(assignMap.entries())
+      .filter(([, personSet]) => personSet.size > 0)
+      .map(([itemId, personSet]) => ({ itemId, personIds: Array.from(personSet) }));
     onConfirm(assignments);
   };
 
